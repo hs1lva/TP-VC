@@ -7,9 +7,13 @@
 #include <opencv2\videoio.hpp>
 
 extern "C" {
-#include "vc.h"
+#include "vc.c"
 }
 
+// Grupo nÂº15 :
+//  - 16368 - Hugo Silva
+//  - 26339 - Hugo PoÃ§as
+//  - 26342 - Pedro Silva
 
 void vc_timer(void) {
 	static bool running = false;
@@ -34,7 +38,7 @@ void vc_timer(void) {
 
 
 int main(void) {
-	// Vídeo
+	// Vï¿½deo
 	char videofile[20] = "video_resistors.mp4";
 	cv::VideoCapture capture;
 	struct
@@ -48,31 +52,31 @@ int main(void) {
 	std::string str;
 	int key = 0;
 
-	/* Leitura de vídeo de um ficheiro */
+	/* Leitura de vï¿½deo de um ficheiro */
 	/* NOTA IMPORTANTE:
-	O ficheiro video.avi deverá estar localizado no mesmo directório que o ficheiro de código fonte.
+	O ficheiro video.avi deverï¿½ estar localizado no mesmo directï¿½rio que o ficheiro de cï¿½digo fonte.
 	*/
 	capture.open(videofile);
 
-	/* Em alternativa, abrir captura de vídeo pela Webcam #0 */
+	/* Em alternativa, abrir captura de vï¿½deo pela Webcam #0 */
 	//capture.open(0, cv::CAP_DSHOW); // Pode-se utilizar apenas capture.open(0);
 
-	/* Verifica se foi possível abrir o ficheiro de vídeo */
+	/* Verifica se foi possï¿½vel abrir o ficheiro de vï¿½deo */
 	if (!capture.isOpened())
 	{
-		std::cerr << "Erro ao abrir o ficheiro de vídeo!\n";
+		std::cerr << "Erro ao abrir o ficheiro de vï¿½deo!\n";
 		return 1;
 	}
 
-	/* Número total de frames no vídeo */
+	/* Nï¿½mero total de frames no vï¿½deo */
 	video.ntotalframes = (int)capture.get(cv::CAP_PROP_FRAME_COUNT);
-	/* Frame rate do vídeo */
+	/* Frame rate do vï¿½deo */
 	video.fps = (int)capture.get(cv::CAP_PROP_FPS);
-	/* Resolução do vídeo */
+	/* Resoluï¿½ï¿½o do vï¿½deo */
 	video.width = (int)capture.get(cv::CAP_PROP_FRAME_WIDTH);
 	video.height = (int)capture.get(cv::CAP_PROP_FRAME_HEIGHT);
 
-	/* Cria uma janela para exibir o vídeo */
+	/* Cria uma janela para exibir o vï¿½deo */
 	cv::namedWindow("VC - VIDEO", cv::WINDOW_AUTOSIZE);
 
 	/* Inicia o timer */
@@ -80,16 +84,16 @@ int main(void) {
 
 	cv::Mat frame;
 	while (key != 'q') {
-		/* Leitura de uma frame do vídeo */
+		/* Leitura de uma frame do vï¿½deo */
 		capture.read(frame);
 
 		/* Verifica se conseguiu ler a frame */
 		if (frame.empty()) break;
 
-		/* Número da frame a processar */
+		/* Nï¿½mero da frame a processar */
 		video.nframe = (int)capture.get(cv::CAP_PROP_POS_FRAMES);
 
-		/* Exemplo de inserção texto na frame */
+		/* Exemplo de inserï¿½ï¿½o texto na frame */
 		str = std::string("RESOLUCAO: ").append(std::to_string(video.width)).append("x").append(std::to_string(video.height));
 		cv::putText(frame, str, cv::Point(20, 25), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(0, 0, 0), 2);
 		cv::putText(frame, str, cv::Point(20, 25), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 1);
@@ -104,17 +108,17 @@ int main(void) {
 		cv::putText(frame, str, cv::Point(20, 100), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 1);
 
 
-		// Faça o seu código aqui...
+		// Faï¿½a o seu cï¿½digo aqui...
 		/*
 		// Cria uma nova imagem IVC
 		IVC *image = vc_image_new(video.width, video.height, 3, 255);
 		// Copia dados de imagem da estrutura cv::Mat para uma estrutura IVC
 		memcpy(image->data, frame.data, video.width * video.height * 3);
-		// Executa uma função da nossa biblioteca vc
+		// Executa uma funï¿½ï¿½o da nossa biblioteca vc
 		vc_rgb_get_green(image);
 		// Copia dados de imagem da estrutura IVC para uma estrutura cv::Mat
 		memcpy(frame.data, image->data, video.width * video.height * 3);
-		// Liberta a memória da imagem IVC que havia sido criada
+		// Liberta a memï¿½ria da imagem IVC que havia sido criada
 		vc_image_free(image);
 		*/
 		// +++++++++++++++++++++++++
@@ -122,7 +126,7 @@ int main(void) {
 		/* Exibe a frame */
 		cv::imshow("VC - VIDEO", frame);
 
-		/* Sai da aplicação, se o utilizador premir a tecla 'q' */
+		/* Sai da aplicaï¿½ï¿½o, se o utilizador premir a tecla 'q' */
 		key = cv::waitKey(1);
 	}
 
@@ -132,7 +136,7 @@ int main(void) {
 	/* Fecha a janela */
 	cv::destroyWindow("VC - VIDEO");
 
-	/* Fecha o ficheiro de vídeo */
+	/* Fecha o ficheiro de vï¿½deo */
 	capture.release();
 
 	return 0;
