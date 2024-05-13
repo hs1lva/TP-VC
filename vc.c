@@ -2026,8 +2026,8 @@ int vc_binary_blob_info(IVC *src, OVC *blobs, int nblobs) // os blobs acima inde
 		// Centro de Gravidade
 		// blobs[i].xc = (xmax - xmin) / 2;
 		// blobs[i].yc = (ymax - ymin) / 2;
-		blobs[i].xc = sumx / MAX(blobs[i].area, 1);
-		blobs[i].yc = sumy / MAX(blobs[i].area, 1);
+		blobs[i].xc = sumx / MY_MAX(blobs[i].area, 1);
+		blobs[i].yc = sumy / MY_MAX(blobs[i].area, 1);
 	}
 
 	return 1;

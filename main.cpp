@@ -7,7 +7,7 @@
 #include <opencv2\videoio.hpp>
 
 extern "C" {
-#include "vc.c"
+#include "vc.h"
 }
 
 // Grupo nº15 :
@@ -39,7 +39,7 @@ void vc_timer(void) {
 
 int main(void) {
 	// V�deo
-	char videofile[20] = "video_resistors.mp4";
+	char videofile[37] = "C:/opencv/TP-VC/video_resistors.mp4";
 	cv::VideoCapture capture;
 	struct
 	{
