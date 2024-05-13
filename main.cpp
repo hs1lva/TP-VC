@@ -6,7 +6,8 @@
 #include <opencv2\highgui.hpp>
 #include <opencv2\videoio.hpp>
 
-extern "C" {
+extern "C"
+{
 #include "vc.h"
 }
 
@@ -15,14 +16,17 @@ extern "C" {
 //  - 26339 - Hugo Poças
 //  - 26342 - Pedro Silva
 
-void vc_timer(void) {
+void vc_timer(void)
+{
 	static bool running = false;
 	static std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
 
-	if (!running) {
+	if (!running)
+	{
 		running = true;
 	}
-	else {
+	else
+	{
 		std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
 		std::chrono::steady_clock::duration elapsedTime = currentTime - previousTime;
 
@@ -36,10 +40,10 @@ void vc_timer(void) {
 	}
 }
 
-
-int main(void) {
+int main(void)
+{
 	// V�deo
-	char videofile[37] = "C:/opencv/TP-VC/video_resistors.mp4";
+	char videofile[] = "video_resistors.mp4";
 	cv::VideoCapture capture;
 	struct
 	{
@@ -59,7 +63,7 @@ int main(void) {
 	capture.open(videofile);
 
 	/* Em alternativa, abrir captura de v�deo pela Webcam #0 */
-	//capture.open(0, cv::CAP_DSHOW); // Pode-se utilizar apenas capture.open(0);
+	// capture.open(0, cv::CAP_DSHOW); // Pode-se utilizar apenas capture.open(0);
 
 	/* Verifica se foi poss�vel abrir o ficheiro de v�deo */
 	if (!capture.isOpened())
@@ -83,12 +87,14 @@ int main(void) {
 	vc_timer();
 
 	cv::Mat frame;
-	while (key != 'q') {
+	while (key != 'q')
+	{
 		/* Leitura de uma frame do v�deo */
 		capture.read(frame);
 
 		/* Verifica se conseguiu ler a frame */
-		if (frame.empty()) break;
+		if (frame.empty())
+			break;
 
 		/* N�mero da frame a processar */
 		video.nframe = (int)capture.get(cv::CAP_PROP_POS_FRAMES);
@@ -106,7 +112,6 @@ int main(void) {
 		str = std::string("N. DA FRAME: ").append(std::to_string(video.nframe));
 		cv::putText(frame, str, cv::Point(20, 100), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(0, 0, 0), 2);
 		cv::putText(frame, str, cv::Point(20, 100), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 1);
-
 
 		// Fa�a o seu c�digo aqui...
 		/*
